@@ -278,6 +278,8 @@ module Unix::Exec
   # @return [Result] result of restarting the SSH service
   def ssh_service_restart
     case self['platform']
+    when /debian-12-armhf/
+      exec(Beaker::Command.new("/etc/init.d/ssh reload"))
     when /debian|ubuntu/
       exec(Beaker::Command.new("systemctl restart ssh"))
     when /(el|centos|redhat|oracle|scientific)-[0-6]/
